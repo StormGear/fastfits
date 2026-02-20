@@ -48,18 +48,18 @@ export const orderItems = pgTable("order_items", {
   priceAtPurchase: real("price_at_purchase").notNull(),
 });
 
-export const insertProductSchema = createInsertSchema(products).omit({ id: true });
-export const insertCartItemSchema = createInsertSchema(cartItems).omit({ id: true });
-export const insertOrderSchema = createInsertSchema(orders).omit({ id: true, createdAt: true });
-export const insertOrderItemSchema = createInsertSchema(orderItems).omit({ id: true });
+export const insertProductSchema = createInsertSchema(products);
+export const insertCartItemSchema = createInsertSchema(cartItems);
+export const insertOrderSchema = createInsertSchema(orders).omit({ createdAt: true });
+export const insertOrderItemSchema = createInsertSchema(orderItems);
 
 export type Product = typeof products.$inferSelect;
-export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type InsertProduct = typeof products.$inferInsert;
 export type CartItem = typeof cartItems.$inferSelect;
-export type InsertCartItem = z.infer<typeof insertCartItemSchema>;
+export type InsertCartItem = typeof cartItems.$inferInsert;
 export type Order = typeof orders.$inferSelect;
-export type InsertOrder = z.infer<typeof insertOrderSchema>;
+export type InsertOrder = typeof orders.$inferInsert;
 export type OrderItem = typeof orderItems.$inferSelect;
-export type InsertOrderItem = z.infer<typeof insertOrderItemSchema>;
+export type InsertOrderItem = typeof orderItems.$inferInsert;
 
 export type CartItemWithProduct = CartItem & { product: Product };
